@@ -44,7 +44,6 @@ export const googgetUser = (user) => async (dispatch) => {
     console.log(error.response.data.message);
   }
 };
-
 export const googcreateUser = (user) => async (dispatch) => {
   try {
     const { data } = await api.googcreateUser(user);

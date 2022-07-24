@@ -32,12 +32,18 @@ import Collapse from "@mui/material/Collapse";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import CloseIcon from "@mui/icons-material/Close";
-import { styled } from "@mui/material/styles";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-
+import { styled} from "@mui/material/styles";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Input from "@mui/material/Input";
 //poop
+import CancelIcon from "@mui/icons-material/Cancel";
+import Stack from "@mui/material/Stack";
 import AddIcon from "@mui/icons-material/Add";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import InputAdornment from "@mui/material/InputAdornment";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
+import StickyNote2Icon from "@mui/icons-material/StickyNote2";
+
 
 //we should see if onclick cant be called in a modal, if not, we need alot of && for all fields with id.
 //or we can check if first three characters are US-
@@ -110,7 +116,6 @@ export default function Map() {
         items = [];
         itemsnum = 0;
       }
-
       for (var i = 0; i < Trips.length; i++) {
         if (Trips[i].stateAbbrev == ST) {
           for (var j = 0; j < Trips[i].cities.length; j++) {
@@ -120,6 +125,21 @@ export default function Map() {
         }
       }
     }
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      date: data.get("date"),
+      city: data.get("city"),
+      description: data.get("description")
+    });
+    const newTrip = { date: "", city: "", description: ""};
+    newTrip.date = data.get("date");
+    newTrip.city = data.get("city");
+    newTrip.description = data.get("description");
+    console.log(newTrip);
   }
 
   const [open, setOpen] = React.useState(false);
@@ -244,31 +264,20 @@ export default function Map() {
     p: 4,
     minWidth: "480px",
   };
+  const addStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "#f8f4e3",
+    border: "1px solid #000",
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3  };
+  
 
-  //After this line and before return is code solely for the table
-  function createData(cityname, state, datestarted, dateended, image) {
-    return {
-      cityname,
-      state,
-      datestarted,
-      dateended,
-      image,
-      history: [
-        {
-          date: "Jan. 15, 2021",
-          customerId:
-            "According to all known laws of aviation, there is no way that a bee should be able to fly, its wings are too small to get its fat little body off ",
-          amount: 3,
-        },
-        {
-          date: "01/12/2020",
-          customerId:
-            "According to all known laws of aviation, there is no way that a bee should be able to fly, its wings are too small to get its fat little body off2",
-          amount: 1,
-        },
-      ],
-    };
-  }
 
   /* ALL THIS CODE IS PLANNED TO BE DELETED
 var STABRV;
@@ -362,17 +371,8 @@ function CollapsibleTable() {
       return (
         <div>
           <Grid style={{ display: "flex" }}>
-            <Button
-              onClick={openForm}
-              startIcon={<AddIcon />}
-              style={{
-                marginLeft: "auto",
-                color: "#F8F4E3",
-                backgroundColor: "#65743A",
-              }}
-            >
-              Add Memory
-            </Button>
+          
+          <AddTripModal/>
           </Grid>
 
           <TableContainer component={Paper}>
@@ -456,6 +456,57 @@ function CollapsibleTable() {
         </TableRow>
       </React.Fragment>
     );
+  }
+
+  function AddTripModal() {
+    //Goal is to return userId, State, city, date, desc, image.
+    //ID + State are set, image will use temp for now
+    const [month,setMonth] = useState("Jan.");
+    const [open2, setOpen2] = React.useState(false);
+
+     const handleChange = (event) => {
+      setMonth(event.target.value)
+    }
+    const handleOpen2 = () => {
+      setOpen2(true);
+    };
+    const handleClose2 = () => {
+      setOpen2(false);
+    }
+    return(<React.Fragment>
+    <Button
+    onClick={handleOpen2}
+    startIcon={<AddIcon />}
+    style={{
+      marginLeft: "auto",
+      color: "#F8F4E3",
+      backgroundColor: "#65743A",
+    }}
+  >
+    Add Memory
+  </Button>
+  <Modal
+  hideBackdrop
+  open={open2}
+  onClose={handleClose2}
+  aria-labelledby="Add Trip"
+  aria-describedby="Add Trip Form">
+    <Fade in={open2}>
+    <Box sx={{...addStyle, width: "300px", "& > :not(style)" : {m : 1}}} component="form" onSubmit={handleSubmit}>
+      <h3 id="Add Memory">Add Memory</h3>
+      <Input placeholder="City Name:" id="city" startAdornment={<InputAdornment position="start"><AddLocationIcon/></InputAdornment>}></Input>
+      <Input placeholder="Description:" id="description" startAdornment={<InputAdornment position="start"><StickyNote2Icon/></InputAdornment>}></Input>
+
+      <Input type="date" id="date"></Input>
+    <Stack direction="row" spacing={1.5} justifyContent="center">
+    <Button type="submit" style={{color: "#F8F4E3", backgroundColor: "#65743A"}}>Submit</Button>
+    <Button onClick={handleClose2} style={{color: "#65743A"}}>Cancel</Button>
+    </Stack>
+
+    </Box>
+    </Fade>
+  </Modal>
+  </React.Fragment> );
   }
 
   //  console.log(user);
