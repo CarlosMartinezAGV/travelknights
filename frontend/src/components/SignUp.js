@@ -45,7 +45,6 @@ export default function SignUp() {
     console.log({
       email: user.get('email'),
       password: user.get('password'),
-
       name: user.get('name'),
     });
     //using user results in empty req.body

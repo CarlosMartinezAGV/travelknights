@@ -49,31 +49,31 @@ export const createUser = async (req, res) => {
 // Implement if user is not verified, they cannot log in
 export const getUser = async (req, res) => {
   const { email, password, emailVerified } = req.body;
-  console.log(emailVerified);
+  //console.log(emailVerified);
   Users.findOne({ email: email }, (err, user) => {
     //const correctpass = await bcrypt.compare(password, user.password);
     //console.log(password);
 
     if (user) {
       if (user.emailVerified) {
-        console.log('Email Verified');
+        //console.log('Email Verified');
         bcrypt.compare(password, user.password, function (error, isMatch) {
           if (error) {
             throw error;
           } else if (!isMatch) {
-            console.log(password + '        ' + user.password);
-            console.log("Password doesn't match!");
+            //console.log(password + '        ' + user.password);
+            //console.log("Password doesn't match!");
             res.status(401).send({ message: '*Password is Incorrect*' });
           } else {
-            console.log(password + '        ' + user.password);
-            console.log('Password matches!');
+            //console.log(password + '        ' + user.password);
+            //console.log('Password matches!');
             //local storeage send json
             //return res.json(user);
             res.status(202).send({ user: user });
           }
         });
       } else {
-        console.log('Email not Verified');
+        //console.log('Email not Verified');
         res.status(403).send({ message: '*Email is not Verified*' });
       }
     } else {

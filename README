@@ -1,0 +1,6 @@
+Backend script for index.js when on heroku:
+"start": "node index.js",
+"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --force --prefix frontend && npm run build --prefix frontend"
+
+Locally:
+"start": "nodemon index.js",
