@@ -1,73 +1,73 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
-import { ReactComponent as Svg } from '../map/usaHigh.svg';
-import AppBar from '@mui/material/AppBar';
-import { useDispatch } from 'react-redux';
-import Toolbar from '@mui/material/Toolbar';
-import { useEffect, useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import Modal from '@mui/material/Modal';
-import Backdrop from '@mui/material/Backdrop';
-import Fade from '@mui/material/Fade';
-import Collapse from '@mui/material/Collapse';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Input from '@mui/material/Input';
-import Stack from '@mui/material/Stack';
-import AddIcon from '@mui/icons-material/Add';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import InputAdornment from '@mui/material/InputAdornment';
-import AddLocationIcon from '@mui/icons-material/AddLocation';
-import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
+import { ReactComponent as Svg } from "../map/usaHigh.svg";
+import AppBar from "@mui/material/AppBar";
+import { useDispatch } from "react-redux";
+import Toolbar from "@mui/material/Toolbar";
+import { useEffect, useState } from "react";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
+import Collapse from "@mui/material/Collapse";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Input from "@mui/material/Input";
+import Stack from "@mui/material/Stack";
+import AddIcon from "@mui/icons-material/Add";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import InputAdornment from "@mui/material/InputAdornment";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
+import StickyNote2Icon from "@mui/icons-material/StickyNote2";
 
 const theme = createTheme();
-var htmlElement = '../map/usaHigh.svg';
+var htmlElement = "../map/usaHigh.svg";
 
 //temp objects before info is sent This is proper format
 //Everything involving Trips, most likely needs to be in useEffect.
 const Trips = [
   {
-    stateAbbrev: 'FL',
+    stateAbbrev: "FL",
     cities: [
       {
-        city: 'Orlando',
+        city: "Orlando",
         memories: [
-          { date: '12/12/12', description: 'desc.', image: 'img' },
+          { date: "12/12/12", description: "desc.", image: "img" },
           {
-            date: '12/12/13',
-            description: 'This is my test description cool',
-            image: 'img',
+            date: "12/12/13",
+            description: "This is my test description cool",
+            image: "img",
           },
         ],
       },
       {
-        city: 'Tampa',
-        memories: [{ date: '02/10/22', description: 'desc.2', image: 'img' }],
+        city: "Tampa",
+        memories: [{ date: "02/10/22", description: "desc.2", image: "img" }],
       },
     ],
   },
   {
-    stateAbbrev: 'GA',
+    stateAbbrev: "GA",
     cities: [
       {
-        city: 'Atlanta',
-        memories: [{ date: '12/12/02', description: 'desc.3', image: 'img' }],
+        city: "Atlanta",
+        memories: [{ date: "12/12/02", description: "desc.3", image: "img" }],
       },
     ],
   },
@@ -83,14 +83,14 @@ export default function Map() {
   useEffect(() => {
     for (var i = 0; i < Trips.length; i++) {
       var STVisited = Trips[i].stateAbbrev;
-      STVisited = 'US-' + STVisited;
+      STVisited = "US-" + STVisited;
       var STCheck = document.getElementById(STVisited);
-      STCheck.setAttribute('class', 'visited');
+      STCheck.setAttribute("class", "visited");
       //Possibly add Trip Table code here.
     }
   }, []);
   function sayHello(el) {
-    if (el.id.startsWith('US-')) {
+    if (el.id.startsWith("US-")) {
       htmlElement = el.id;
       var ST = htmlElement.substring(htmlElement.length - 2); //We'd actually check the stateabbrev. object, see if we find it, then push all cities from there along with however we want to display memories.
       htmlElement = ST;
@@ -114,14 +114,14 @@ export default function Map() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      date: data.get('date'),
-      city: data.get('city'),
-      description: data.get('description'),
+      date: data.get("date"),
+      city: data.get("city"),
+      description: data.get("description"),
     });
-    const newTrip = { date: '', city: '', description: '' };
-    newTrip.date = data.get('date');
-    newTrip.city = data.get('city');
-    newTrip.description = data.get('description');
+    const newTrip = { date: "", city: "", description: "" };
+    newTrip.date = data.get("date");
+    newTrip.city = data.get("city");
+    newTrip.description = data.get("description");
     console.log(newTrip);
   };
 
@@ -146,7 +146,7 @@ export default function Map() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('profile'));
+  const user = JSON.parse(localStorage.getItem("profile"));
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [nav, setnav] = React.useState(null);
@@ -159,9 +159,9 @@ export default function Map() {
   };
 
   const Logout = () => {
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: "LOGOUT" });
     localStorage.clear();
-    navigate('/');
+    navigate("/");
   };
 
   const handleCloseUserMenu = () => {
@@ -174,24 +174,25 @@ export default function Map() {
 
   //This styles the modals
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    bgcolor: '#f8f4e3',
-    border: '1px solid #000',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "#f8f4e3",
+    border: "1px solid #000",
     boxShadow: 24,
     p: 4,
-    minWidth: '70%',
+    minWidth: "70%",
   };
   const addStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: '#f8f4e3',
-    border: '1px solid #000',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    minWidth: "40%",
+    maxWidth: "50%",
+    bgcolor: "#f8f4e3",
+    border: "1px solid #000",
     boxShadow: 24,
     pt: 2,
     px: 4,
@@ -203,14 +204,14 @@ export default function Map() {
     if (itemsnum != 0) {
       return (
         <div>
-          <Grid style={{ display: 'flex' }}>
+          <Grid style={{ display: "flex" }}>
             <AddTripModal />
           </Grid>
 
           <TableContainer component={Paper}>
-            <Table aria-label='collapsible table'>
+            <Table aria-label="collapsible table">
               <TableHead>
-                <TableRow align='left'>
+                <TableRow align="left">
                   <TableCell />
                   <TableCell>
                     <b style={{ fontSize: 18 }}>City</b>
@@ -228,7 +229,7 @@ export default function Map() {
       );
     } else {
       return (
-        <h3 style={{ textAlign: 'center' }}>
+        <h3 style={{ textAlign: "center" }}>
           No Trips Found. Would you like to add one?
         </h3>
       );
@@ -239,45 +240,45 @@ export default function Map() {
     const [open2, setOpen2] = React.useState(false);
     return (
       <React.Fragment>
-        <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+        <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
           <TableCell>
             <IconButton
-              aria-label='expand row'
-              size='small'
+              aria-label="expand row"
+              size="small"
               onClick={() => setOpen2(!open2)}
             >
               {open2 ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
-          <TableCell component='th' scope='row'>
+          <TableCell component="th" scope="row">
             {row.city}
           </TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-            <Collapse in={open2} timeout='auto' unmountOnExit>
+            <Collapse in={open2} timeout="auto" unmountOnExit>
               <Box sx={{ margin: 1 }}>
-                <Typography variant='h6' gutterBottom component='div'>
+                <Typography variant="h6" gutterBottom component="div">
                   Memories:
                 </Typography>
-                <Table size='small' aria-label='Memories'>
+                <Table size="small" aria-label="Memories">
                   <TableHead>
                     <TableRow>
                       <TableCell>Date</TableCell>
-                      <TableCell align='center'>Description:</TableCell>
-                      <TableCell align='center'>Image</TableCell>
+                      <TableCell align="center">Description:</TableCell>
+                      <TableCell align="center">Image</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {row.memories.map((historyRow) => (
                       <TableRow key={historyRow.date}>
-                        <TableCell component='th' scope='row'>
+                        <TableCell component="th" scope="row">
                           {historyRow.date}
                         </TableCell>
-                        <TableCell align='center'>
+                        <TableCell align="center">
                           {historyRow.description}
                         </TableCell>
-                        <TableCell align='center'>{historyRow.image}</TableCell>
+                        <TableCell align="center">{historyRow.image}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -293,7 +294,7 @@ export default function Map() {
   function AddTripModal() {
     //Goal is to return userId, State, city, date, desc, image.
     //ID + State are set, image will use temp for now
-    const [month, setMonth] = useState('Jan.');
+    const [month, setMonth] = useState("Jan.");
     const [open2, setOpen2] = React.useState(false);
 
     const handleChange = (event) => {
@@ -311,9 +312,9 @@ export default function Map() {
           onClick={handleOpen2}
           startIcon={<AddIcon />}
           style={{
-            marginLeft: 'auto',
-            color: '#F8F4E3',
-            backgroundColor: '#65743A',
+            marginLeft: "auto",
+            color: "#F8F4E3",
+            backgroundColor: "#65743A",
           }}
         >
           Add Memory
@@ -322,67 +323,66 @@ export default function Map() {
           hideBackdrop
           open={open2}
           onClose={handleClose2}
-          aria-labelledby='Add Trip'
-          aria-describedby='Add Trip Form'
+          aria-labelledby="Add Trip"
+          aria-describedby="Add Trip Form"
         >
           <Fade in={open2}>
             <Box
-              sx={{ ...addStyle, width: '300px', '& > :not(style)': { m: 1 } }}
-              component='form'
+              sx={{ ...addStyle, width: 400, "& > :not(style)": { m: 1 } }}
+              component="form"
               onSubmit={handleSubmit}
             >
-              <Typography style={{ fontSize: 22 }} align='center'>
+              <Typography style={{ fontSize: 22 }} align="center">
                 <b>Add Memory to {htmlElement}</b>
               </Typography>
-              <Stack direction='column' justifyContent='center'>
+              <Stack direction="column" justifyContent="center">
                 <Input
-                  placeholder='City Name:'
-                  id='city'
-                  name='city'
+                  placeholder="City Name:"
+                  id="city"
+                  name="city"
                   startAdornment={
-                    <InputAdornment position='start'>
+                    <InputAdornment position="start">
                       <AddLocationIcon />
                     </InputAdornment>
                   }
                 ></Input>
                 <TextField
-                  placeholder='Description:'
-                  id='standard-multiline-flexible'
+                  placeholder="Description:"
+                  id="standard-multiline-flexible"
                   multiline
-                  name='description'
+                  name="description"
                   maxRows={4}
                   onChange={handleChange}
-                  variant='standard'
+                  variant="standard"
                   inputProps={{
                     maxLength: 145,
                   }}
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment position='start'>
+                      <InputAdornment position="start">
                         <StickyNote2Icon />
                       </InputAdornment>
                     ),
                   }}
-                />{' '}
+                />{" "}
               </Stack>
 
-              <Grid container>
-                <Grid Item xs={6} sm={6} md={6}>
-                  <Input type='date' id='date'></Input>
-                </Grid>
-                <Grid Item xs={6} sm={6} md={6}>
-                  <Input type='file'></Input>
-                </Grid>
+              <Stack direction="column">
+                <Input type="file" justifyContent="center"></Input>
+              </Stack>
+
+              <Grid container justifyContent="center">
+                <Input type="date" id="date"></Input>
               </Grid>
 
-              <Stack direction='row' spacing={1.5} justifyContent='center'>
+              <Stack direction="row" spacing={1.5} justifyContent="center">
                 <Button
-                  type='submit'
-                  style={{ color: '#F8F4E3', backgroundColor: '#65743A' }}
+                  type="submit"
+                  style={{ color: "#F8F4E3", backgroundColor: "#65743A" }}
                 >
                   Submit
                 </Button>
-                <Button onClick={handleClose2} style={{ color: '#65743A' }}>
+                <Button onClick={handleClose2} style={{ color: "#65743A" }}>
                   Cancel
                 </Button>
               </Stack>
@@ -396,47 +396,47 @@ export default function Map() {
   return (
     <div>
       <Box onClick={(element) => sayHello(element.target)}>
-        <AppBar position='sticky'>
-          <Toolbar sx={{ backgroundColor: '#65743a' }}>
+        <AppBar position="sticky">
+          <Toolbar sx={{ backgroundColor: "#65743a" }}>
             <AccountCircle sx={{ fontSize: 21, m: 0.4 }} />
-            <Typography component='div' sx={{ fontSize: 15 }}>
+            <Typography component="div" sx={{ fontSize: 15 }}>
               {user.payload.user.name}
             </Typography>
             <Typography
-              variant='h5'
-              component='div'
+              variant="h5"
+              component="div"
               sx={{ flexGrow: 1 }}
-              style={{ textAlign: 'center' }}
+              style={{ textAlign: "center" }}
             >
               Travel Knights
             </Typography>
 
             <Button
-              color='inherit'
-              sx={{ textTransform: 'none' }}
+              color="inherit"
+              sx={{ textTransform: "none" }}
               onClick={handleOpenUserMenu}
             >
               <MenuIcon />
             </Button>
 
             <Menu
-              sx={{ mt: '45px' }}
-              id='menu-appbar'
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={Logout}>
-                <Typography textAlign='center'>Logout</Typography>
+                <Typography textAlign="center">Logout</Typography>
               </MenuItem>
             </Menu>
           </Toolbar>
@@ -445,8 +445,8 @@ export default function Map() {
         <Svg />
 
         <Modal
-          aria-labelledby='transition-modal-title'
-          aria-describedby='transition-modal-description'
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
           open={open}
           onClose={handleClose}
           closeAfterTransition
@@ -459,10 +459,10 @@ export default function Map() {
             <Grid sx={style}>
               <Typography
                 sx={{ mb: 2 }}
-                textAlign='center'
-                id='transition-modal-title'
-                variant='h6'
-                component='h2'
+                textAlign="center"
+                id="transition-modal-title"
+                variant="h6"
+                component="h2"
               >
                 Here are your trips from {htmlElement}!
               </Typography>
